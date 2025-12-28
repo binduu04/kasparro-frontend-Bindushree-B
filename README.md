@@ -82,7 +82,6 @@ Added Skeleton components for better UX:
 Implemented error states for both dashboard pages:
 
 - Shows error cards when data fails to load
-- Retry buttons to refresh the page
 - Proper error messages with visual feedback
 
 ### Brand Switching
@@ -143,9 +142,8 @@ These made the code cleaner and easier to maintain.
 **What I'd improve with more time:**
 
 - Could add animations for page transitions
-- Better mobile navigation (hamburger menu for small screens)
+- Currently works on small screens as well but can be improvised a bit (hamburger menu for small screens)
 - More comprehensive error messages
-- Add tests (never got to that part)
 
 **What I struggled with:**
 
@@ -158,7 +156,7 @@ These made the code cleaner and easier to maintain.
 - Kept all data in JSON files instead of setting up a backend
 - Used simple state management instead of complex solutions
 - Focused on functionality over fancy animations
-- Made sure it works on mobile even if not perfect
+- Made sure it works on mobile even if not very perfect
 
 ## Data Structure
 
