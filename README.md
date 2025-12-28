@@ -66,8 +66,6 @@ Added proper dark mode support using `next-themes`:
 - Used CSS variables for theme colors where possible
 - Added custom `dark:` classes for specific elements
 
-Learned a lot about the difference between using CSS variables (like `bg-primary`) vs manual dark mode styling (like `bg-gray-900 dark:bg-gray-800`). CSS variables are cleaner when you have a design system!
-
 ### Loading States
 
 Added Skeleton components for better UX:
