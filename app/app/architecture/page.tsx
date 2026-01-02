@@ -1,35 +1,37 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ScrollRevealLeft } from '@/components/shared/ScrollRevealLeft';
 import { ArrowDown, ArrowRight } from 'lucide-react';
 
 export default function ArchitecturePage() {
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8 fade-in">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">System Architecture</h1>
+        <div className="mb-6 sm:mb-8 slide-up">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">System Architecture</h1>
           <p className="text-gray-600 dark:text-gray-300">
             Visual representation of the Kasparro AI-SEO audit pipeline
           </p>
         </div>
 
         {/* Architecture Flow */}
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {/* Input Assembler */}
-          <Card className="border-l-4 border-blue-500">
+          <ScrollRevealLeft delay={0}>
+            <Card className="border-l-4 border-blue-500">
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="text-2xl">1. Input Assembler</CardTitle>
-                  <CardDescription className="text-base mt-2">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex-1">
+                  <CardTitle className="text-xl sm:text-2xl">1. Input Assembler</CardTitle>
+                  <CardDescription className="text-sm sm:text-base mt-2">
                     Data collection and normalization layer
                   </CardDescription>
                 </div>
-                <div className="text-4xl font-bold text-blue-500">📥</div>
+                <div className="text-3xl sm:text-4xl flex-shrink-0">📥</div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div>
                   <h4 className="font-semibold dark:text-white mb-3">Data Sources</h4>
                   <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
@@ -42,7 +44,7 @@ export default function ArchitecturePage() {
                 </div>
                 <div>
                   <h4 className="font-semibold dark:text-white mb-3">Output</h4>
-                  <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded border dark:border-gray-700 text-sm font-mono text-gray-700 dark:text-gray-300">
+                  <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded border dark:border-gray-700 text-xs sm:text-sm font-mono text-gray-700 dark:text-gray-300 overflow-x-auto">
                     <div>{'{'}</div>
                     <div className="ml-4">domain: &quot;techvision.io&quot;,</div>
                     <div className="ml-4">pages: [&nbsp;&#123;...&#125;,&nbsp;&#123;...&#125;&nbsp;],</div>
@@ -54,6 +56,7 @@ export default function ArchitecturePage() {
               </div>
             </CardContent>
           </Card>
+          </ScrollRevealLeft>
 
           {/* Arrow */}
           <div className="flex justify-center">
@@ -61,20 +64,21 @@ export default function ArchitecturePage() {
           </div>
 
           {/* Context Pack */}
-          <Card className="border-l-4 border-purple-500">
+          <ScrollRevealLeft delay={100}>
+            <Card className="border-l-4 border-purple-500">
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="text-2xl">2. Context Pack</CardTitle>
-                  <CardDescription className="text-base mt-2">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex-1">
+                  <CardTitle className="text-xl sm:text-2xl">2. Context Pack</CardTitle>
+                  <CardDescription className="text-sm sm:text-base mt-2">
                     Data enrichment and competitive intelligence layer
                   </CardDescription>
                 </div>
-                <div className="text-4xl font-bold text-purple-500">🔍</div>
+                <div className="text-3xl sm:text-4xl flex-shrink-0">🔍</div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div>
                   <h4 className="font-semibold dark:text-white mb-3">Enrichment Sources</h4>
                   <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
@@ -100,6 +104,7 @@ export default function ArchitecturePage() {
               </div>
             </CardContent>
           </Card>
+          </ScrollRevealLeft>
 
           {/* Arrow */}
           <div className="flex justify-center">
@@ -107,20 +112,21 @@ export default function ArchitecturePage() {
           </div>
 
           {/* Audit Modules */}
-          <Card className="border-l-4 border-green-500">
+          <ScrollRevealLeft delay={200}>
+            <Card className="border-l-4 border-green-500">
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="text-2xl">3. Audit Modules (7 Parallel Agents)</CardTitle>
-                  <CardDescription className="text-base mt-2">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex-1">
+                  <CardTitle className="text-xl sm:text-2xl">3. Audit Modules (7 Parallel Agents)</CardTitle>
+                  <CardDescription className="text-sm sm:text-base mt-2">
                     Specialized AI agents for multi-dimensional analysis
                   </CardDescription>
                 </div>
-                <div className="text-4xl font-bold text-green-500">🤖</div>
+                <div className="text-3xl sm:text-4xl flex-shrink-0">⚙️</div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {[
                   { name: 'Content Analysis', focus: 'Quality, relevance, AI-friendliness' },
                   { name: 'E-E-A-T Assessment', focus: 'Trust and authority signals' },
@@ -149,6 +155,7 @@ export default function ArchitecturePage() {
               </div>
             </CardContent>
           </Card>
+          </ScrollRevealLeft>
 
           {/* Arrow */}
           <div className="flex justify-center">
@@ -156,20 +163,21 @@ export default function ArchitecturePage() {
           </div>
 
           {/* Output Surface */}
-          <Card className="border-l-4 border-orange-500">
+          <ScrollRevealLeft delay={300}>
+            <Card className="border-l-4 border-orange-500">
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="text-2xl">4. Output Surface</CardTitle>
-                  <CardDescription className="text-base mt-2">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex-1">
+                  <CardTitle className="text-xl sm:text-2xl">4. Output Surface</CardTitle>
+                  <CardDescription className="text-sm sm:text-base mt-2">
                     User-facing insights and dashboards
                   </CardDescription>
                 </div>
-                <div className="text-4xl font-bold text-orange-500">📊</div>
+                <div className="text-3xl sm:text-4xl flex-shrink-0">📊</div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                 <div className="bg-orange-50 dark:bg-orange-950 p-4 rounded-lg border border-orange-200 dark:border-orange-800">
                   <h4 className="font-semibold dark:text-white mb-2">Dashboard</h4>
                   <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
@@ -200,10 +208,12 @@ export default function ArchitecturePage() {
               </div>
             </CardContent>
           </Card>
+          </ScrollRevealLeft>
         </div>
 
         {/* Technical Notes */}
-        <Card className="mt-8 bg-gray-50 dark:bg-gray-900">
+        <ScrollRevealLeft delay={400}>
+          <Card className="mt-8 bg-gray-50 dark:bg-gray-900">
           <CardHeader>
             <CardTitle>Technical Implementation Notes</CardTitle>
           </CardHeader>
@@ -232,6 +242,7 @@ export default function ArchitecturePage() {
             </ul>
           </CardContent>
         </Card>
+        </ScrollRevealLeft>
       </div>
     </div>
   );

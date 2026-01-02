@@ -41,7 +41,7 @@ kasparro-assignment/
 ├── components/
 │   ├── ui/                      # shadcn components (Button, Card, Select, Badge, Skeleton)
 │   ├── layout/                  # Header, Footer with theme toggle
-│   └── shared/                  # ThemeProvider, ThemeToggle
+│   └── shared/                  # ThemeProvider, ThemeToggle, ScrollReveal, ScrollRevealLeft
 │
 ├── data/                        # JSON files with mock data
 │   ├── brands.json              # 3 brands
@@ -105,6 +105,26 @@ Improved `lib/utils.ts` with helper functions:
 
 These made the code cleaner and easier to maintain.
 
+### Scroll Animations
+
+Implemented smooth scroll-triggered animations:
+
+- **ScrollReveal Component**: Uses IntersectionObserver to detect when elements enter viewport
+- Cards and sections animate as user scrolls (not just on page load)
+- Staggered delays create polished sequential appearance
+- Two variants: bottom slide (general) and left slide (Platform/Architecture pages)
+- Optimized for performance with proper thresholds and cleanup
+
+### Mobile Navigation
+
+Full mobile responsiveness across all pages:
+
+- **Collapsible Sidebar**: Main navigation with hamburger menu in header
+- **Body Scroll Lock**: Prevents background scrolling when sidebar open
+- **Audit Module Selector**: Floating button for mobile with clean styling
+- **Responsive Grids**: Mobile-first breakpoints (grid-cols-1 sm:grid-cols-2 md:grid-cols-3)
+- All content properly padded and sized for mobile screens
+
 ## What I Learned
 
 **Dark Mode is tricky:**
@@ -142,8 +162,8 @@ These made the code cleaner and easier to maintain.
 
 **What I'd improve with more time:**
 
-- Could add animations for page transitions
-- Better mobile navigation (hamburger menu for small screens)
+- ~~Could add animations for page transitions~~ ✅ **DONE** - Added scroll-triggered animations
+- ~~Better mobile navigation (hamburger menu for small screens)~~ ✅ **DONE** - Full mobile responsiveness with collapsible sidebar
 - More comprehensive error messages
 - Add tests (never got to that part)
 
@@ -157,8 +177,69 @@ These made the code cleaner and easier to maintain.
 
 - Kept all data in JSON files instead of setting up a backend
 - Used simple state management instead of complex solutions
-- Focused on functionality over fancy animations
-- Made sure it works on mobile even if not perfect
+- Focused on functionality and smooth user experience
+- Made it fully responsive and mobile-friendly with proper animations
+
+## Latest Updates (P2 Issues - All Resolved ✅)
+
+### Mobile Experience Improvements
+
+**Collapsible Navigation:**
+
+- Added hamburger menu in header for main navigation (Dashboard/Audit/Architecture)
+- Implemented collapsible sidebar with smooth slide-in/out animations
+- Added body scroll lock when sidebar is open (prevents background scrolling)
+- Responsive padding and layouts across all dashboard pages
+
+**Audit Page Mobile Optimization:**
+
+- Floating module selector button (bottom-right) with clear white background and blue border
+- Auto-closes sidebar when module is selected for better UX
+- All cards and grids now mobile-first with proper breakpoints
+
+**Responsive Design:**
+
+- Dashboard: Mobile-first grid layouts (grid-cols-1 sm:grid-cols-2 md:grid-cols-3)
+- Architecture: All sections adapt to mobile screens with proper spacing
+- Responsive text sizes and emoji icons throughout
+
+### Page Transition Animations
+
+**Scroll-Triggered Animations:**
+
+- Created `ScrollReveal` component using IntersectionObserver API
+- Cards and content animate into view as you scroll down
+- Staggered delays create sequential "one-by-one" appearance effect
+
+**Home Page:**
+
+- All module cards slide up with delays (100ms, 200ms, 300ms...)
+- Pipeline steps animate sequentially
+- CTA button has pulse-glow animation with hover effects
+
+**Platform Page:**
+
+- All cards slide in from left with smooth animations
+- Audit pipeline cards (Input Assembler, Context Pack, Audit Modules, Output Surface)
+- "How Kasparro Differs" section cards animate sequentially
+
+**About Page:**
+
+- Mission and Vision sections animate on scroll
+- Product Philosophy cards (4 cards with staggered delays)
+- Team/Founder section with smooth reveal
+
+**Architecture Page:**
+
+- All 5 major cards slide in from left (Input Assembler, Context Pack, Audit Modules, Output Surface, Technical Notes)
+- Sequential animation with 0ms, 100ms, 200ms, 300ms, 400ms delays
+
+**Technical Implementation:**
+
+- `ScrollReveal` component: Bottom slide for general content
+- `ScrollRevealLeft` component: Left slide specifically for Platform and Architecture pages
+- Threshold: 0.1, rootMargin: 50px for optimal trigger timing
+- Smooth 700ms transitions with ease-out timing
 
 ## Data Structure
 

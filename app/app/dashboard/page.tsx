@@ -177,23 +177,23 @@ export default function DashboardPage() {
   });
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8 fade-in">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Dashboard</h1>
-          <p className="text-gray-600 dark:text-gray-300">
+        <div className="mb-6 sm:mb-8 slide-up">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">Dashboard</h1>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">
             High-level brand intelligence snapshot for AI-first search performance
           </p>
         </div>
 
         {/* Brand Selector */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8 slide-up">
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Select Brand
           </label>
           <Select value={selectedBrandId} onValueChange={setSelectedBrandId}>
-            <SelectTrigger className="w-full md:w-80 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white">
+            <SelectTrigger className="w-full sm:w-80 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white">
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
@@ -212,7 +212,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Snapshot Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8">
           <ScoreCard score={snapshot.aiVisibilityScore} icon={Brain} />
           <ScoreCard score={snapshot.trustScore} icon={Shield} />
           <ScoreCard score={snapshot.keywordCoverage} icon={Target} />

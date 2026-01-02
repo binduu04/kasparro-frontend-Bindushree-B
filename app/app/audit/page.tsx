@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -11,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { CheckCircle2, AlertCircle, AlertTriangle, XCircle, TrendingUp, Lightbulb } from 'lucide-react';
+import { CheckCircle2, AlertCircle, AlertTriangle, XCircle, TrendingUp, Lightbulb, Menu, X } from 'lucide-react';
 import auditDataJson from '@/data/audit-data.json';
 import brandsData from '@/data/brands.json';
 import { AuditModule, Issue, Recommendation, Insight, Brand } from '@/types';
@@ -245,6 +246,7 @@ export default function AuditPage() {
   const [selectedModuleId, setSelectedModuleId] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   const brandAudit = auditData[selectedBrandId];
 
@@ -299,18 +301,55 @@ export default function AuditPage() {
   const scoreColor = scorePercentage >= 80 ? 'text-green-600' : scorePercentage >= 60 ? 'text-yellow-600' : 'text-red-600';
 
   return (
-    <div className="flex h-[calc(100vh-73px)]">
-      {/* Left Sidebar - Module List */}
-      <div className="w-80 bg-gray-50 dark:bg-gray-900 border-r dark:border-gray-800 p-6 overflow-y-auto">
-        <div className="mb-6">
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Audit Modules</h2>
+    <div className="flex h-[calc(100vh-73px)] fade-in relative">
+      {/* Backdrop Overlay for Mobile */}
+      {mobileSidebarOpen && (
+        <div 
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setMobileSidebarOpen(false)}
+        />
+      )}
+
+      {/* Mobile Menu Button - Fixed in bottom right */}
+      <button
+        onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+        className="lg:hidden fixed bottom-6 right-4 z-50 p-3 bg-white dark:bg-gray-900 text-primary border-2 border-primary rounded-full shadow-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-all"
+        aria-label="Toggle module menu"
+      >
+        {mobileSidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+      </button>
+
+      {/* Left Sidebar - Slides in from left on mobile */}
+      <div className={`
+        ${mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
+        lg:translate-x-0 lg:relative
+        fixed top-0 left-0 h-full w-80 z-50
+        bg-gray-50 dark:bg-gray-900 border-r dark:border-gray-800 
+        p-6 overflow-y-auto
+        transition-transform duration-300 ease-in-out
+      `}>
+        <div className="mb-6 slide-up">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-bold text-gray-900 dark:text-white">Audit Modules</h2>
+            {/* Close button for mobile */}
+            <button
+              onClick={() => setMobileSidebarOpen(false)}
+              className="lg:hidden p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+            </button>
+          </div>
           
           {/* Brand Selector */}
           <div className="mb-4">
             <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
               Select Brand
             </label>
-            <Select value={selectedBrandId} onValueChange={setSelectedBrandId}>
+            <Select value={selectedBrandId} onValueChange={(value) => {
+              setSelectedBrandId(value);
+              setMobileSidebarOpen(false);
+            }}>
               <SelectTrigger className="w-full bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white">
                 <SelectValue />
               </SelectTrigger>
@@ -334,33 +373,36 @@ export default function AuditPage() {
         <ModuleSidebar
           modules={brandAudit.modules}
           selectedModuleId={selectedModuleId}
-          onSelectModule={setSelectedModuleId}
+          onSelectModule={(moduleId) => {
+            setSelectedModuleId(moduleId);
+            setMobileSidebarOpen(false);
+          }}
         />
       </div>
 
       {/* Main Panel - Module Details */}
       <div className="flex-1 overflow-y-auto">
-        <div className="p-8">
+        <div key={selectedModuleId} className="p-4 sm:p-6 md:p-8 fade-in">
           <div className="max-w-5xl mx-auto">
             {/* Module Header */}
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            <div className="mb-6 sm:mb-8 slide-up">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
                 {selectedModule.name}
               </h1>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">{selectedModule.description}</p>
-              <div className="flex items-baseline gap-3">
-                <span className={`text-5xl font-bold ${scoreColor}`}>
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4">{selectedModule.description}</p>
+              <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
+                <span className={`text-3xl sm:text-4xl md:text-5xl font-bold ${scoreColor}`}>
                   {selectedModule.score.value}
                 </span>
-                <span className="text-2xl text-gray-400 dark:text-gray-500">/ {selectedModule.score.maxValue}</span>
-                <span className="ml-4 text-sm text-gray-600 dark:text-gray-400">{selectedModule.score.label}</span>
+                <span className="text-xl sm:text-2xl text-gray-400 dark:text-gray-500">/ {selectedModule.score.maxValue}</span>
+                <span className="ml-2 sm:ml-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">{selectedModule.score.label}</span>
               </div>
             </div>
 
             {/* Insights Section */}
             {selectedModule.insights.length > 0 && (
-              <div className="mb-8">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Key Insights</h2>
+              <div className="mb-6 sm:mb-8">
+                <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">Key Insights</h2>
                 <div className="space-y-3">
                   {selectedModule.insights.map((insight) => (
                     <InsightCard key={insight.id} insight={insight} />
@@ -371,8 +413,8 @@ export default function AuditPage() {
 
             {/* Issues Section */}
             {selectedModule.issues.length > 0 && (
-              <div className="mb-8">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+              <div className="mb-6 sm:mb-8">
+                <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
                   Issues & Flags ({selectedModule.issues.length})
                 </h2>
                 <div className="space-y-3">
@@ -385,8 +427,8 @@ export default function AuditPage() {
 
             {/* Recommendations Section */}
             {selectedModule.recommendations.length > 0 && (
-              <div className="mb-8">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+              <div className="mb-6 sm:mb-8">
+                <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
                   Recommendations ({selectedModule.recommendations.length})
                 </h2>
                 <div className="space-y-3">
